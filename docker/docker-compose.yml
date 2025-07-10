@@ -223,18 +223,18 @@ services:
     depends_on:
       opencti:
         condition: service_healthy
-  connector-abuse-ssl:
-    image: opencti/connector-abuse-ssl:6.7.3
-    environment:
-      - OPENCTI_URL=http://opencti:8080
-      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
-      - CONNECTOR_ID=26bdd02c-3797-40eb-92c4-e545f040eabd
-      - "CONNECTOR_NAME=Abuse.ch SSL Blacklist"
-      - CONNECTOR_SCOPE=abusessl
-      - CONNECTOR_LOG_LEVEL=error
-      - ABUSESSL_URL=https://sslbl.abuse.ch/blacklist/sslipblacklist.csv
-      - ABUSESSL_INTERVAL=360 # Time to wait in minutes between subsequent requests
-    restart: always
+#  connector-abuse-ssl:
+#    image: opencti/connector-abuse-ssl:6.7.3
+#    environment:
+#      - OPENCTI_URL=http://opencti:8080
+#      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
+#      - CONNECTOR_ID=26bdd02c-3797-40eb-92c4-e545f040eabd
+#      - "CONNECTOR_NAME=Abuse.ch SSL Blacklist"
+#      - CONNECTOR_SCOPE=abusessl
+#      - CONNECTOR_LOG_LEVEL=error
+#      - ABUSESSL_URL=https://sslbl.abuse.ch/blacklist/sslipblacklist.csv
+#      - ABUSESSL_INTERVAL=360 # Time to wait in minutes between subsequent requests
+#    restart: always
   connector-abuseipdb-ipblacklist:
     image: opencti/connector-abuseipdb-ipblacklist:6.6.17
     environment:
@@ -284,35 +284,35 @@ services:
       - ALIENVAULT_X_OPENCTI_SCORE_MUTEX=60
       - ALIENVAULT_X_OPENCTI_SCORE_CRYPTOCURRENCY_WALLET=80
     restart: always
-  connector-cisa-known-exploited-vulnerabilities:
-    image: opencti/connector-cisa-known-exploited-vulnerabilities:6.7.3
-    environment:
-      - OPENCTI_URL=http://opencti:8080
-      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
-      - CONNECTOR_ID=7eeee7a4-7fbe-4f75-9116-a622364a443a
-      - "CONNECTOR_NAME=CISA Known Exploited Vulnerabilities"
-      - CONNECTOR_SCOPE=cisa
-      - CONNECTOR_RUN_AND_TERMINATE=false
-      - CONNECTOR_LOG_LEVEL=error
-      - CONNECTOR_DURATION_PERIOD=P2D
-      - CISA_CATALOG_URL=https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json
-      - CISA_CREATE_INFRASTRUCTURES=false
-      - CISA_TLP=TLP:CLEAR
-    restart: always
-  connector-cyber-campaign-collection:
-    image: opencti/connector-cyber-campaign-collection:6.7.3
-    environment:
-      - OPENCTI_URL=http://opencti:8080
-      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
-      - CONNECTOR_ID=d58dfc4b-daac-430a-81c8-b34970386a87
-      - "CONNECTOR_NAME=APT & Cybercriminals Campaign Collection"
-      - CONNECTOR_SCOPE=report
-      - CONNECTOR_RUN_AND_TERMINATE=false
-      - CONNECTOR_LOG_LEVEL=error
-      - CYBER_MONITOR_GITHUB_TOKEN= # If not provided, rate limit will be very low
-      - CYBER_MONITOR_FROM_YEAR=2018
-      - CYBER_MONITOR_INTERVAL=4 # In days, must be strictly greater than 1
-    restart: always
+#  connector-cisa-known-exploited-vulnerabilities:
+#    image: opencti/connector-cisa-known-exploited-vulnerabilities:6.7.3
+#    environment:
+#      - OPENCTI_URL=http://opencti:8080
+#      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
+#      - CONNECTOR_ID=7eeee7a4-7fbe-4f75-9116-a622364a443a
+#      - "CONNECTOR_NAME=CISA Known Exploited Vulnerabilities"
+#      - CONNECTOR_SCOPE=cisa
+#      - CONNECTOR_RUN_AND_TERMINATE=false
+#      - CONNECTOR_LOG_LEVEL=error
+#      - CONNECTOR_DURATION_PERIOD=P2D
+#      - CISA_CATALOG_URL=https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json
+#      - CISA_CREATE_INFRASTRUCTURES=false
+#      - CISA_TLP=TLP:CLEAR
+#    restart: always
+#  connector-cyber-campaign-collection:
+#    image: opencti/connector-cyber-campaign-collection:6.7.3
+#    environment:
+#      - OPENCTI_URL=http://opencti:8080
+#      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
+#      - CONNECTOR_ID=d58dfc4b-daac-430a-81c8-b34970386a87
+#      - "CONNECTOR_NAME=APT & Cybercriminals Campaign Collection"
+#      - CONNECTOR_SCOPE=report
+#      - CONNECTOR_RUN_AND_TERMINATE=false
+#      - CONNECTOR_LOG_LEVEL=error
+#      - CYBER_MONITOR_GITHUB_TOKEN= # If not provided, rate limit will be very low
+#      - CYBER_MONITOR_FROM_YEAR=2018
+#      - CYBER_MONITOR_INTERVAL=4 # In days, must be strictly greater than 1
+#    restart: always
   connector-cve:
     image: opencti/connector-cve:6.6.17
     environment:
@@ -331,174 +331,174 @@ services:
       - CVE_PULL_HISTORY=false # If true, CVE_HISTORY_START_YEAR is required
       - CVE_HISTORY_START_YEAR=2019 # Required if pull_history is True, min 2019 (see documentation CVE and CVSS base score V3.1)
     restart: always
-  connector-malpedia:
-    image: opencti/connector-malpedia:6.7.3
-    environment:
-      - OPENCTI_URL=http://opencti:8080
-      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
-      - CONNECTOR_ID=aad9d7ee-7c28-4fa2-a868-cf40696494f3
-      - CONNECTOR_NAME=Malpedia
-      - CONNECTOR_SCOPE=malpedia
-      - CONNECTOR_LOG_LEVEL=error
-      - CONNECTOR_EXPOSE_METRICS=false
-      - "MALPEDIA_AUTH_KEY= # Empty key only fetches TLP:WHITE information"
-      - MALPEDIA_INTERVAL_SEC=86400 # Run once every day
-      - MALPEDIA_IMPORT_INTRUSION_SETS=true
-      - MALPEDIA_IMPORT_YARA=true
-      - MALPEDIA_CREATE_INDICATORS=true
-      - MALPEDIA_CREATE_OBSERVABLES=true
-    restart: always
-  connector-malware-bazaar:
-    image: opencti/connector-malwarebazaar:6.7.3
-    environment:
-      # Connector's generic execution parameters
-      - OPENCTI_URL=http://opencti:8080
-      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
-      # Connector's definition parameters REQUIRED
-      - CONNECTOR_ID=46920578-5296-4c93-a90a-49c56d2b4e0a
-      - CONNECTOR_TYPE=EXTERNAL_IMPORT
-      - CONNECTOR_NAME=MalwareBazaar
-      - CONNECTOR_SCOPE=StixFile
-      - CONNECTOR_LOG_LEVEL=info
-      - CONNECTOR_DURATION_PERIOD=PT50M # ISO8601 format in String, start with 'P...' for Period
-      # Connector's definition parameters OPTIONAL
-      # - CONNECTOR_QUEUE_THRESHOLD=500 # Default 500Mo, Float accepted
-      # - CONNECTOR_RUN_AND_TERMINATE=False # Default False, True run connector once
-      # - CONNECTOR_SEND_TO_QUEUE=True # Default True
-      # - CONNECTOR_SEND_TO_DIRECTORY=False # Default False
-      # - CONNECTOR_SEND_TO_DIRECTORY_PATH=CHANGEME # if CONNECTOR_SEND_TO_DIRECTORY is True, you must specify a path
-      # - CONNECTOR_SEND_TO_DIRECTORY_RETENTION=7 # Default 7, in days
-      # Connector's custom execution parameters
-      - MALWAREBAZAAR_API_BASE_URL=https://mb-api.abuse.ch/api/v1/
-      # - MALWAREBAZAAR_API_KEY=${MALWAREBAZAAR_USER_TOKEN} # Stored in ENVAR, but can be hardcoded. Do not check TOKEN into version control. Not required in this implementation, left here for reference if ever needed.
-      - MALWAREBAZAAR_TLP_LEVEL=clear # available values are: clear, white, green, amber, amber+strict, red - Default: 'clear'
-      - MALWAREBAZAAR_X_OPENCTI_SCORE=100 # Range is 0 - 100, will degrade over time see: https://docs.opencti.io/latest/usage/indicators-lifecycle/#score-decay
-      - MALWAREBAZAAR_INCLUDE_TAGS=exe,dll,docm,docx,doc,xls,xlsx,xlsm,js # (Optional) Only download files if any tag matches. (Comma separated)
-      - MALWAREBAZAAR_INCLUDE_REPORTERS= # (Optional) Only download files uploaded by these reporters. (Comma separated)
-      - MALWAREBAZAAR_LABELS=malware-bazaar # (Optional) Labels to apply to uploaded Artifacts. (Comma separated)
-    restart: always
-  connector-mitre-atlas:
-    image: opencti/connector-mitre-atlas:6.7.3
-    environment:
-      - OPENCTI_URL=http://opencti:8080
-      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
-      - CONNECTOR_ID=8d515f82-2e51-4063-ba71-2c2f5ddecb8b
-      - "CONNECTOR_NAME=MITRE ATLAS"
-      - CONNECTOR_SCOPE=identity,attack-pattern,course-of-action,relationship,x-mitre-collection,x-mitre-matrix,x-mitre-tactic
-      - CONNECTOR_RUN_AND_TERMINATE=false
-      - CONNECTOR_LOG_LEVEL=error
-      - MITRE_ATLAS_URL=https://raw.githubusercontent.com/mitre-atlas/atlas-navigator-data/main/dist/stix-atlas.json
-      - MITRE_ATLAS_INTERVAL=7 # In days, must be strictly greater than 1
-    restart: always
-  connector-mitre:
-    image: opencti/connector-mitre:6.7.3
-    environment:
-      - OPENCTI_URL=http://opencti:8080
-      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
-      - CONNECTOR_ID=5632e036-3f55-4a76-a499-475170ac4949
-      - "CONNECTOR_NAME=MITRE Datasets"
-      - CONNECTOR_SCOPE=tool,report,malware,identity,campaign,intrusion-set,attack-pattern,course-of-action,x-mitre-data-source,x-mitre-data-component,x-mitre-matrix,x-mitre-tactic,x-mitre-collection
-      - CONNECTOR_RUN_AND_TERMINATE=false
-      - CONNECTOR_LOG_LEVEL=error
-      - MITRE_REMOVE_STATEMENT_MARKING=true
-      - MITRE_INTERVAL=7 # In days
-    restart: always
-  connector-opencti:
-    image: opencti/connector-opencti:6.7.3
-    environment:
-      - OPENCTI_URL=http://opencti:8080
-      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
-      - CONNECTOR_ID=83a020b6-6662-44c3-9029-7449f1cd7d95
-      - "CONNECTOR_NAME=OpenCTI Datasets"
-      - CONNECTOR_SCOPE=marking-definition,identity,location
-      - CONNECTOR_UPDATE_EXISTING_DATA=true
-      - CONNECTOR_RUN_AND_TERMINATE=false
-      - CONNECTOR_LOG_LEVEL=error
-      - CONFIG_SECTORS_FILE_URL=https://raw.githubusercontent.com/OpenCTI-Platform/datasets/master/data/sectors.json
-      - CONFIG_GEOGRAPHY_FILE_URL=https://raw.githubusercontent.com/OpenCTI-Platform/datasets/master/data/geography.json
-      - CONFIG_COMPANIES_FILE_URL=https://raw.githubusercontent.com/OpenCTI-Platform/datasets/master/data/companies.json
-      - CONFIG_REMOVE_CREATOR=false
-      - CONFIG_INTERVAL=7 # In days
-    restart: always
-  connector-redflag-domains:
-    image: opencti/connector-red-flag-domains:6.7.3
-    environment:
-      - OPENCTI_URL=http://opencti:8080
-      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
-      - CONNECTOR_ID=18ca8c97-3938-4add-8dcb-87144381012a
-      - "CONNECTOR_NAME=Red Flag Domains"
-      - CONNECTOR_SCOPE=red-flag-domains
-      - UPDATE_EXISTING_DATA=False
-      - CONNECTOR_LOG_LEVEL=info
-      - REDFLAGDOMAINS_URL=https://dl.red.flag.domains/daily/
-    restart: always
-  connector-stopforumspam:
-    image: opencti/connector-stopforumspam:6.7.3
-    environment:
-      - OPENCTI_URL=http://opencti:8080
-      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
-      - CONNECTOR_ID=97651ca2-d858-4da8-9eb5-9bbf67030921
-      - CONNECTOR_NAME=Stopforumspam
-      - CONNECTOR_SCOPE=stopforumspam
-      - CONNECTOR_LOG_LEVEL=error
-      - STOPFORUMSPAM_URL=https://www.stopforumspam.com/downloads/toxic_domains_whole_filtered_50000.txt
-      - STOPFORUMSPAM_CREATE_INDICATORS=true
-      - STOPFORUMSPAM_INTERVAL=3 # In days, must be strictly greater than 1
-    restart: always
-  connector-threatfox:
-    image: opencti/connector-threatfox:6.7.3
-    environment:
-      - OPENCTI_URL=http://opencti:8080
-      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
-      - CONNECTOR_ID=11b470f3-d1ab-4e89-9b9a-6f4c15ab2b3e
-      - "CONNECTOR_NAME=Abuse.ch | ThreatFox"
-      - CONNECTOR_SCOPE=ThreatFox
-      - CONNECTOR_LOG_LEVEL=error
-      - THREATFOX_CSV_URL=https://threatfox.abuse.ch/export/csv/recent/
-      - THREATFOX_IMPORT_OFFLINE=true
-      - THREATFOX_CREATE_INDICATORS=true
-      - THREATFOX_DEFAULT_X_OPENCTI_SCORE=50
-      - THREATFOX_X_OPENCTI_SCORE_IP=60
-      - THREATFOX_X_OPENCTI_SCORE_DOMAIN=70
-      - THREATFOX_X_OPENCTI_SCORE_URL=75
-      - THREATFOX_X_OPENCTI_SCORE_HASH=80
-      - THREATFOX_INTERVAL=3 # In days, must be strictly greater than 1
-      - THREATFOX_IOC_TO_IMPORT=ip:port,domain,url # List of IOC types to import
-    restart: always
-  connector-urlhaus-recent-payloads:
-    image: opencti/connector-urlhaus-recent-payloads:6.7.3
-    environment:
-      - OPENCTI_URL=http://opencti:8080
-      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
-      - CONNECTOR_ID=48032a03-bfa2-4a55-a8f6-e61763b56650
-      - "CONNECTOR_NAME=URLhaus Recent Payloads"
-      - CONNECTOR_LOG_LEVEL=error
-      - URLHAUS_RECENT_PAYLOADS_API_URL=https://urlhaus-api.abuse.ch/v1/
-      - URLHAUS_RECENT_PAYLOADS_COOLDOWN_SECONDS=300 # Time to wait in seconds between subsequent requests
-      - URLHAUS_RECENT_PAYLOADS_INCLUDE_FILETYPES=exe,dll,docm,docx,doc,xls,xlsx,xlsm,js,xll # (Optional) Only download files if any tag matches. (Comma separated)
-      - URLHAUS_RECENT_PAYLOADS_INCLUDE_SIGNATURES= # (Optional) Only download files matching these Yara rules. (Comma separated)
-      - URLHAUS_RECENT_PAYLOADS_SKIP_UNKNOWN_FILETYPES=true # Skip files with an unknown file type
-      - URLHAUS_RECENT_PAYLOADS_SKIP_NULL_SIGNATURE=true # Skip files that didn't match known Yara rules
-      - URLHAUS_RECENT_PAYLOADS_LABELS=urlhaus # (Optional) Labels to apply to uploaded Artifacts. (Comma separated)
-      - URLHAUS_RECENT_PAYLOADS_LABELS_COLOR=#54483b
-      - URLHAUS_RECENT_PAYLOADS_SIGNATURE_LABEL_COLOR=#0059f7 # Color for Yara rule match label
-      - URLHAUS_RECENT_PAYLOADS_FILETYPE_LABEL_COLOR=#54483b # Color to use for filetype label
-    restart: always
-  connector-urlhaus:
-    image: opencti/connector-urlhaus:6.7.3
-    environment:
-      - OPENCTI_URL=http://opencti:8080
-      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
-      - CONNECTOR_ID=84637d5d-bfc2-4447-9606-e05a0ccf1766
-      - "CONNECTOR_NAME=Abuse.ch URLhaus"
-      - CONNECTOR_SCOPE=urlhaus
-      - CONNECTOR_LOG_LEVEL=error
-      - URLHAUS_CSV_URL=https://urlhaus.abuse.ch/downloads/csv_recent/
-      - URLHAUS_DEFAULT_X_OPENCTI_SCORE=80 # Optional: Defaults to 80.
-      - URLHAUS_IMPORT_OFFLINE=true
-      - URLHAUS_THREATS_FROM_LABELS=true
-      - URLHAUS_INTERVAL=3 # In days, must be strictly greater than 1
-    restart: always
+#  connector-malpedia:
+#    image: opencti/connector-malpedia:6.7.3
+#    environment:
+#      - OPENCTI_URL=http://opencti:8080
+#      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
+#      - CONNECTOR_ID=aad9d7ee-7c28-4fa2-a868-cf40696494f3
+#      - CONNECTOR_NAME=Malpedia
+#      - CONNECTOR_SCOPE=malpedia
+#      - CONNECTOR_LOG_LEVEL=error
+#      - CONNECTOR_EXPOSE_METRICS=false
+#      - "MALPEDIA_AUTH_KEY= # Empty key only fetches TLP:WHITE information"
+#      - MALPEDIA_INTERVAL_SEC=86400 # Run once every day
+#      - MALPEDIA_IMPORT_INTRUSION_SETS=true
+#      - MALPEDIA_IMPORT_YARA=true
+#      - MALPEDIA_CREATE_INDICATORS=true
+#      - MALPEDIA_CREATE_OBSERVABLES=true
+#    restart: always
+#  connector-malware-bazaar:
+#    image: opencti/connector-malwarebazaar:6.7.3
+#    environment:
+#      # Connector's generic execution parameters
+#      - OPENCTI_URL=http://opencti:8080
+#      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
+#      # Connector's definition parameters REQUIRED
+#      - CONNECTOR_ID=46920578-5296-4c93-a90a-49c56d2b4e0a
+#      - CONNECTOR_TYPE=EXTERNAL_IMPORT
+#      - CONNECTOR_NAME=MalwareBazaar
+#      - CONNECTOR_SCOPE=StixFile
+#      - CONNECTOR_LOG_LEVEL=info
+#      - CONNECTOR_DURATION_PERIOD=PT50M # ISO8601 format in String, start with 'P...' for Period
+#      # Connector's definition parameters OPTIONAL
+#      # - CONNECTOR_QUEUE_THRESHOLD=500 # Default 500Mo, Float accepted
+#      # - CONNECTOR_RUN_AND_TERMINATE=False # Default False, True run connector once
+#      # - CONNECTOR_SEND_TO_QUEUE=True # Default True
+#      # - CONNECTOR_SEND_TO_DIRECTORY=False # Default False
+#      # - CONNECTOR_SEND_TO_DIRECTORY_PATH=CHANGEME # if CONNECTOR_SEND_TO_DIRECTORY is True, you must specify a path
+#      # - CONNECTOR_SEND_TO_DIRECTORY_RETENTION=7 # Default 7, in days
+#      # Connector's custom execution parameters
+#      - MALWAREBAZAAR_API_BASE_URL=https://mb-api.abuse.ch/api/v1/
+#      # - MALWAREBAZAAR_API_KEY=${MALWAREBAZAAR_USER_TOKEN} # Stored in ENVAR, but can be hardcoded. Do not check TOKEN into version control. Not required in this implementation, left here for reference if ever needed.
+#      - MALWAREBAZAAR_TLP_LEVEL=clear # available values are: clear, white, green, amber, amber+strict, red - Default: 'clear'
+#      - MALWAREBAZAAR_X_OPENCTI_SCORE=100 # Range is 0 - 100, will degrade over time see: https://docs.opencti.io/latest/usage/indicators-lifecycle/#score-decay
+#      - MALWAREBAZAAR_INCLUDE_TAGS=exe,dll,docm,docx,doc,xls,xlsx,xlsm,js # (Optional) Only download files if any tag matches. (Comma separated)
+#      - MALWAREBAZAAR_INCLUDE_REPORTERS= # (Optional) Only download files uploaded by these reporters. (Comma separated)
+#      - MALWAREBAZAAR_LABELS=malware-bazaar # (Optional) Labels to apply to uploaded Artifacts. (Comma separated)
+#    restart: always
+#  connector-mitre-atlas:
+#    image: opencti/connector-mitre-atlas:6.7.3
+#    environment:
+#      - OPENCTI_URL=http://opencti:8080
+#      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
+#      - CONNECTOR_ID=8d515f82-2e51-4063-ba71-2c2f5ddecb8b
+#      - "CONNECTOR_NAME=MITRE ATLAS"
+#      - CONNECTOR_SCOPE=identity,attack-pattern,course-of-action,relationship,x-mitre-collection,x-mitre-matrix,x-mitre-tactic
+#      - CONNECTOR_RUN_AND_TERMINATE=false
+#      - CONNECTOR_LOG_LEVEL=error
+#      - MITRE_ATLAS_URL=https://raw.githubusercontent.com/mitre-atlas/atlas-navigator-data/main/dist/stix-atlas.json
+#      - MITRE_ATLAS_INTERVAL=7 # In days, must be strictly greater than 1
+#    restart: always
+#  connector-mitre:
+#    image: opencti/connector-mitre:6.7.3
+#    environment:
+#      - OPENCTI_URL=http://opencti:8080
+#      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
+#      - CONNECTOR_ID=5632e036-3f55-4a76-a499-475170ac4949
+#      - "CONNECTOR_NAME=MITRE Datasets"
+#      - CONNECTOR_SCOPE=tool,report,malware,identity,campaign,intrusion-set,attack-pattern,course-of-action,x-mitre-data-source,x-mitre-data-component,x-mitre-matrix,x-mitre-tactic,x-mitre-collection
+#      - CONNECTOR_RUN_AND_TERMINATE=false
+#      - CONNECTOR_LOG_LEVEL=error
+#      - MITRE_REMOVE_STATEMENT_MARKING=true
+#      - MITRE_INTERVAL=7 # In days
+#    restart: always
+#  connector-opencti:
+#    image: opencti/connector-opencti:6.7.3
+#    environment:
+#      - OPENCTI_URL=http://opencti:8080
+#      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
+#      - CONNECTOR_ID=83a020b6-6662-44c3-9029-7449f1cd7d95
+#      - "CONNECTOR_NAME=OpenCTI Datasets"
+#      - CONNECTOR_SCOPE=marking-definition,identity,location
+#      - CONNECTOR_UPDATE_EXISTING_DATA=true
+#      - CONNECTOR_RUN_AND_TERMINATE=false
+#      - CONNECTOR_LOG_LEVEL=error
+#      - CONFIG_SECTORS_FILE_URL=https://raw.githubusercontent.com/OpenCTI-Platform/datasets/master/data/sectors.json
+#      - CONFIG_GEOGRAPHY_FILE_URL=https://raw.githubusercontent.com/OpenCTI-Platform/datasets/master/data/geography.json
+#      - CONFIG_COMPANIES_FILE_URL=https://raw.githubusercontent.com/OpenCTI-Platform/datasets/master/data/companies.json
+#      - CONFIG_REMOVE_CREATOR=false
+#      - CONFIG_INTERVAL=7 # In days
+#    restart: always
+#  connector-redflag-domains:
+#    image: opencti/connector-red-flag-domains:6.7.3
+#    environment:
+#      - OPENCTI_URL=http://opencti:8080
+#      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
+#      - CONNECTOR_ID=18ca8c97-3938-4add-8dcb-87144381012a
+#      - "CONNECTOR_NAME=Red Flag Domains"
+#      - CONNECTOR_SCOPE=red-flag-domains
+#      - UPDATE_EXISTING_DATA=False
+#      - CONNECTOR_LOG_LEVEL=info
+#      - REDFLAGDOMAINS_URL=https://dl.red.flag.domains/daily/
+#    restart: always
+#  connector-stopforumspam:
+#    image: opencti/connector-stopforumspam:6.7.3
+#    environment:
+#      - OPENCTI_URL=http://opencti:8080
+#      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
+#      - CONNECTOR_ID=97651ca2-d858-4da8-9eb5-9bbf67030921
+#      - CONNECTOR_NAME=Stopforumspam
+#      - CONNECTOR_SCOPE=stopforumspam
+#      - CONNECTOR_LOG_LEVEL=error
+#      - STOPFORUMSPAM_URL=https://www.stopforumspam.com/downloads/toxic_domains_whole_filtered_50000.txt
+#      - STOPFORUMSPAM_CREATE_INDICATORS=true
+#      - STOPFORUMSPAM_INTERVAL=3 # In days, must be strictly greater than 1
+#    restart: always
+#  connector-threatfox:
+#    image: opencti/connector-threatfox:6.7.3
+#    environment:
+#      - OPENCTI_URL=http://opencti:8080
+#      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
+#      - CONNECTOR_ID=11b470f3-d1ab-4e89-9b9a-6f4c15ab2b3e
+#      - "CONNECTOR_NAME=Abuse.ch | ThreatFox"
+#      - CONNECTOR_SCOPE=ThreatFox
+#      - CONNECTOR_LOG_LEVEL=error
+#      - THREATFOX_CSV_URL=https://threatfox.abuse.ch/export/csv/recent/
+#      - THREATFOX_IMPORT_OFFLINE=true
+#      - THREATFOX_CREATE_INDICATORS=true
+#      - THREATFOX_DEFAULT_X_OPENCTI_SCORE=50
+#      - THREATFOX_X_OPENCTI_SCORE_IP=60
+#      - THREATFOX_X_OPENCTI_SCORE_DOMAIN=70
+#      - THREATFOX_X_OPENCTI_SCORE_URL=75
+#      - THREATFOX_X_OPENCTI_SCORE_HASH=80
+#      - THREATFOX_INTERVAL=3 # In days, must be strictly greater than 1
+#      - THREATFOX_IOC_TO_IMPORT=ip:port,domain,url # List of IOC types to import
+#    restart: always
+#  connector-urlhaus-recent-payloads:
+#    image: opencti/connector-urlhaus-recent-payloads:6.7.3
+#    environment:
+#      - OPENCTI_URL=http://opencti:8080
+#      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
+#      - CONNECTOR_ID=48032a03-bfa2-4a55-a8f6-e61763b56650
+#      - "CONNECTOR_NAME=URLhaus Recent Payloads"
+#      - CONNECTOR_LOG_LEVEL=error
+#      - URLHAUS_RECENT_PAYLOADS_API_URL=https://urlhaus-api.abuse.ch/v1/
+#      - URLHAUS_RECENT_PAYLOADS_COOLDOWN_SECONDS=300 # Time to wait in seconds between subsequent requests
+#      - URLHAUS_RECENT_PAYLOADS_INCLUDE_FILETYPES=exe,dll,docm,docx,doc,xls,xlsx,xlsm,js,xll # (Optional) Only download files if any tag matches. (Comma separated)
+#      - URLHAUS_RECENT_PAYLOADS_INCLUDE_SIGNATURES= # (Optional) Only download files matching these Yara rules. (Comma separated)
+#      - URLHAUS_RECENT_PAYLOADS_SKIP_UNKNOWN_FILETYPES=true # Skip files with an unknown file type
+#      - URLHAUS_RECENT_PAYLOADS_SKIP_NULL_SIGNATURE=true # Skip files that didn't match known Yara rules
+#      - URLHAUS_RECENT_PAYLOADS_LABELS=urlhaus # (Optional) Labels to apply to uploaded Artifacts. (Comma separated)
+#      - URLHAUS_RECENT_PAYLOADS_LABELS_COLOR=#54483b
+#      - URLHAUS_RECENT_PAYLOADS_SIGNATURE_LABEL_COLOR=#0059f7 # Color for Yara rule match label
+#      - URLHAUS_RECENT_PAYLOADS_FILETYPE_LABEL_COLOR=#54483b # Color to use for filetype label
+#    restart: always
+#  connector-urlhaus:
+#    image: opencti/connector-urlhaus:6.7.3
+#    environment:
+#      - OPENCTI_URL=http://opencti:8080
+#      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
+#      - CONNECTOR_ID=84637d5d-bfc2-4447-9606-e05a0ccf1766
+#      - "CONNECTOR_NAME=Abuse.ch URLhaus"
+#      - CONNECTOR_SCOPE=urlhaus
+#      - CONNECTOR_LOG_LEVEL=error
+#      - URLHAUS_CSV_URL=https://urlhaus.abuse.ch/downloads/csv_recent/
+#      - URLHAUS_DEFAULT_X_OPENCTI_SCORE=80 # Optional: Defaults to 80.
+#      - URLHAUS_IMPORT_OFFLINE=true
+#      - URLHAUS_THREATS_FROM_LABELS=true
+#      - URLHAUS_INTERVAL=3 # In days, must be strictly greater than 1
+#    restart: always
   connector-urlscan:
     image: opencti/connector-urlscan:6.6.17
     environment:
@@ -527,28 +527,28 @@ services:
       - CONNECTOR_VULNCHECK_API_KEY=${CONNECTOR_VULNCHECK_API_KEY}
       # - CONNECTOR_VULNCHECK_DATA_SOURCES=botnets,epss,exploits,initial-access,ipintel,nist-nvd2,ransomware,snort,suricata,threat-actors,vulncheck-kev,vulncheck-nvd2
     restart: always
-  connector-wiz:
-    image: opencti/connector-wiz:6.7.3
-    environment:
-      # Connector's generic execution parameters
-      - OPENCTI_URL=http://opencti:8080
-      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
-      # Connector's definition parameters REQUIRED
-      - CONNECTOR_ID=644eee28-d983-488c-a33d-2bb8b9fe1064
-      - CONNECTOR_NAME=Wiz Cloud Threat LandScape
-      - CONNECTOR_SCOPE=wiz
-      - CONNECTOR_LOG_LEVEL=error
-      - CONNECTOR_DURATION_PERIOD=PT30M # ISO8601 format in String, start with 'P...' for Period
-      - WIZ_THREAT_ACTOR_AS_INTRUSION_SET=False
-      - WIZ_TLP_LEVEL=clear
-      # Connector's definition parameters OPTIONAL
-      # - CONNECTOR_QUEUE_THRESHOLD=500 # Default 500Mo, Float accepted
-      # - CONNECTOR_RUN_AND_TERMINATE=False # Default False, True run connector once
-      # - CONNECTOR_SEND_TO_QUEUE=True # Default True
-      # - CONNECTOR_SEND_TO_DIRECTORY=False # Default False
-      # - CONNECTOR_SEND_TO_DIRECTORY_PATH=CHANGEME # if CONNECTOR_SEND_TO_DIRECTORY is True, you must specify a path
-      # - CONNECTOR_SEND_TO_DIRECTORY_RETENTION=7 # Default 7, in days
-    restart: always
+#  connector-wiz:
+#    image: opencti/connector-wiz:6.7.3
+#    environment:
+#      # Connector's generic execution parameters
+#      - OPENCTI_URL=http://opencti:8080
+#      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
+#      # Connector's definition parameters REQUIRED
+#      - CONNECTOR_ID=644eee28-d983-488c-a33d-2bb8b9fe1064
+#      - CONNECTOR_NAME=Wiz Cloud Threat LandScape
+#      - CONNECTOR_SCOPE=wiz
+#      - CONNECTOR_LOG_LEVEL=error
+#      - CONNECTOR_DURATION_PERIOD=PT30M # ISO8601 format in String, start with 'P...' for Period
+#      - WIZ_THREAT_ACTOR_AS_INTRUSION_SET=False
+#      - WIZ_TLP_LEVEL=clear
+#      # Connector's definition parameters OPTIONAL
+#      # - CONNECTOR_QUEUE_THRESHOLD=500 # Default 500Mo, Float accepted
+#      # - CONNECTOR_RUN_AND_TERMINATE=False # Default False, True run connector once
+#      # - CONNECTOR_SEND_TO_QUEUE=True # Default True
+#      # - CONNECTOR_SEND_TO_DIRECTORY=False # Default False
+#      # - CONNECTOR_SEND_TO_DIRECTORY_PATH=CHANGEME # if CONNECTOR_SEND_TO_DIRECTORY is True, you must specify a path
+#      # - CONNECTOR_SEND_TO_DIRECTORY_RETENTION=7 # Default 7, in days
+#    restart: always
 
 volumes:
   esdata:

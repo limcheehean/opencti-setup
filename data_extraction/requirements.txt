@@ -1,0 +1,7 @@
+Flask~=3.1.1
+openai~=1.84.0
+python-dotenv~=1.1.0
+requests~=2.32.4
+pycti~=6.6.15
+elasticsearch~=9.0.2
+urllib3~=2.4.0

@@ -57,3 +57,13 @@ docker compose -p opencti up
 ## Python API Client
 
 OpenCTI offers a Python client at https://github.com/OpenCTI-Platform/client-python.
+
+
+## Data Extraction (WIP/Experimental)
+
+Some scripts to pull data and ingest into local elasticsearch.\
+Rename .env.sample to .env
+
+- retriever.py (pull data from instance specified in .env)
+- loader.py (load data into elasticsearch)
+- embedder.py (generate embeddings)
